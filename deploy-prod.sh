@@ -16,7 +16,7 @@ echo "++++ build client" && \
 EOF
 [ $? -eq 0 ] && \
 	echo "++++ copy site" && \
-	scp -r dist $server:~/website/citrus/citrus-client && \\
+	scp -r dist $server:~/website/citrus/citrus-client && \
 	ssh $server << EOF 
 	cd ~/website/citrus/citrus-client && \\
 	echo "---- client: git pull" && \\
