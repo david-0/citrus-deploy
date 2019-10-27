@@ -20,15 +20,15 @@ processExitStatus() {
 }
 
 exec() {
+	eval $@
 	echo -n "$@ ... "
-#	eval $@
 	processExitStatus
 }
 
 # parameter 1: systemdServiceName
 updateDbSettings() {
 	if [[ "$1" = "citrus-int" ]]; then
-		echo "update ormconfig for integration ..."
+		echo -n "update ormconfig for integration ..."
 		sed -i 's/"database": "citrus"/"database": "citrus-int"/g' ormconfig.json
 		processExitStatus
 	fi;
@@ -49,6 +49,7 @@ if [[ "$systemdServiceName" = "" ]]; then
 	echo "no service found";
 	exit 1
 fi;
+export NG_CLI_ANALYTICS=false
 cd ..
 if [[ "$level" = "full" ]] || [[ ! -d "citrus-client" ]] ; then
 	exec rm -rf citrus-server
