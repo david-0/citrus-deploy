@@ -41,7 +41,7 @@ if [[ "$1" = "--full" ]]; then
 fi;
 if [[ "$systemdServiceName" = "" ]]; then
 	echo "no service found";
-#	exit 1
+	exit 1
 fi;
 cd ..
 if [[ "$level" = "full" ]] || [[ ! -d "citrus-client" ]] ; then
