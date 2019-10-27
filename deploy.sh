@@ -1,10 +1,13 @@
 #!/bin/bash
 
 if [[ "$1" == "-h" ]]; then
-	echo "usage: $0 [--full]"
+	echo "usage: $0 [--full] [--use-prebuilt-client]"
 	echo "the script must be run in specific location to deply int or prod";
 	exit 1;
 fi;
+
+s=$(readlink -f $0)
+cd ${s%/*}
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -34,16 +37,17 @@ updateDbSettings() {
 	fi;
 }
 
-level=partial
-
 if [[ "$(pwd)" = "/home/alixon/usr/davidl/website/citrus-prod/citrus-deploy" ]] ; then
 	systemdServiceName=citrus-prod;
 fi;
 if [[ "$(pwd)" = "/home/alixon/usr/davidl/website/citrus-int/citrus-deploy" ]] ; then
 	systemdServiceName=citrus-int;
 fi;
-if [[ "$1" = "--full" ]]; then
+if [[ "$1" = "--full" ]] || [[ "$2" = "--full" ]] ; then
 	level=full;
+fi;
+if [[ "$1" = "--use-prebuilt-client" ]] || [[ "$2" = "--use-prebuilt-client" ]] ; then
+	usePrebuiltClient=yes;
 fi;
 if [[ "$systemdServiceName" = "" ]]; then
 	echo "no service found";
@@ -60,13 +64,18 @@ if [[ "$level" = "full" ]] || [[ ! -d "citrus-client" ]] ; then
 	exec npm run build
 	exec cd ..
 
-	exec rm -rf citrus-client
-	exec git clone https://github.com/david-0/citrus-client.git
-	exec cd citrus-client
-	exec npm install
-	exec npm run build-prod
-	exec npm run deploy
-	exec cd ..
+	if [[ "${usePrebuiltClient}" = "yes" ]]; then
+		exec rm -rf citrus-server/dist/client
+		exec mv prebuilt-client citrus-server/dist/client
+	else
+		exec rm -rf citrus-client
+		exec git clone https://github.com/david-0/citrus-client.git
+		exec cd citrus-client
+		exec npm install
+		exec npm run build-prod
+		exec npm run deploy
+		exec cd ..
+	fi;
 	
 	exec sudo systemctl stop ${systemdServiceName}
 	exec rm -rf citrus-run
@@ -74,7 +83,7 @@ if [[ "$level" = "full" ]] || [[ ! -d "citrus-client" ]] ; then
 	exec sudo systemctl start ${systemdServiceName}
 else 
 	exec sudo systemctl stop ${systemdServiceName}
-	exec cd citrus-server
+	exec cd citrus-run
 	exec git reset --hard
 	exec git clean -fd
 	updateDbSettings ${systemdServiceName}
@@ -82,10 +91,16 @@ else
 	exec npm run build
 	exec cd ..
 	
-	exec cd citrus-client
-	exec git reset --hard
-	exec git clean -fd
-	exec npm run build-prod
-	exec npm run deploy
-	exec cd ..
+	if [[ "${usePrebuiltClient}" = "yes" ]]; then
+		exec rm -rf citrus-server/dist/client
+		exec mv prebuilt-client citrus-server/dist/client
+	else
+		exec cd citrus-client
+		exec git reset --hard
+		exec git clean -fd
+		exec npm run build-prod
+		exec npm run deploy
+		exec cd ..
+	fi;
+	exec sudo systemctl start ${systemdServiceName}
 fi;
