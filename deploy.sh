@@ -47,6 +47,7 @@ if [[ "$1" = "--full" ]] || [[ "$2" = "--full" ]] ; then
 	level=full;
 fi;
 if [[ "$1" = "--use-prebuilt-client" ]] || [[ "$2" = "--use-prebuilt-client" ]] ; then
+	echo "use prebuilt client"
 	usePrebuiltClient=yes;
 fi;
 if [[ "$systemdServiceName" = "" ]]; then

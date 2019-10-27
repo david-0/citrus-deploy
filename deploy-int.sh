@@ -44,5 +44,5 @@ else
 fi;
 exec scp -r citrus-client/dist $server:~/website/citrus-int/prebuilt-client
 exec ssh $server << EOF
-	~/website/citrus-int/citrus-deploy/deploy.sh $level --use-preuilt-client
+	~/website/citrus-int/citrus-deploy/deploy.sh $level --use-prebuilt-client
 EOF
