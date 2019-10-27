@@ -10,9 +10,7 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
 
-exec() {
-	echo -n "$@ ... "
-#	eval $@
+processExitStatus() {
 	if [[ $? -eq 0 ]]; then
 		echo -e "${GREEN}ok${NC}";
 	else
@@ -21,10 +19,18 @@ exec() {
 	fi;
 }
 
+exec() {
+	echo -n "$@ ... "
+#	eval $@
+	processExitStatus
+}
+
 # parameter 1: systemdServiceName
 updateDbSettings() {
 	if [[ "$1" = "citrus-int" ]]; then
-		exec sed -i 's/"database": "citrus"/"database": "citrus-int"/g' ormconfig.json
+		echo "update ormconfig for integration ..."
+		sed -i 's/"database": "citrus"/"database": "citrus-int"/g' ormconfig.json
+		processExitStatus
 	fi;
 }
 
