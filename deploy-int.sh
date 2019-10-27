@@ -24,7 +24,9 @@ exec() {
 	processExitStatus
 }
 
-exec ssh $server ~/website/citrus-int/citrus-deploy/prepare-for-client-upload.sh
+exec ssh $server << EOF
+	~/website/citrus-int/citrus-deploy/prepare-for-client-upload.sh
+EOF
 if [[ "$1" = "--full" ]] || [[ "$2" = "--full" ]] ; then
 	level="--full"
 	exec rm -rf citrus-client
@@ -41,4 +43,6 @@ else
 	exec cd ..
 fi;
 exec scp -r citrus-client/dist $server:~/website/citrus-int/prebuilt-client
-exec ssh $server ~/website/citrus-int/citrus-deploy/deploy.sh $level --use-preuilt-client
+exec ssh $server << EOF
+	~/website/citrus-int/citrus-deploy/deploy.sh $level --use-preuilt-client
+EOF
