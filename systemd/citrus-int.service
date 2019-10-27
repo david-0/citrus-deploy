@@ -9,7 +9,7 @@ Restart=always
 RestartSec=1
 User=davidl
 Environment=NODE_ENV=development PORT_HTTP=4001 PORT=4002
-WorkingDirectory=/home/david/dev/citrus-int/citrus-server
+WorkingDirectory=/home/david/dev/citrus-int/citrus-run
 ExecStart=/usr/bin/node dist/app.js
 
 [Install]
