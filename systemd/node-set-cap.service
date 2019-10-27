@@ -1,0 +1,13 @@
+[Unit]
+Description=Update capabilities for node to start process with port 80
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=setcap 'cap_net_bind_service=+ep' /usr/bin/node
+
+[Install]
+WantedBy=multi-user.target
+
