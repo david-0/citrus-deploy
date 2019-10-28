@@ -20,6 +20,6 @@ exec() {
 	echo -e "${LIGHT_MAGENTA}$@${NC} ${LIGHT_YELLOW}(STARTED) >>>>${NC}"
 	eval $@
 	retVal=$?
-	echo -e -n "${LIGHT_YELLOW}<<<<(FINISHED) ${LIGHT_MAGENTA} $@${NC} >>"
+	echo -e -n "${LIGHT_YELLOW}<<<< (FINISHED) ${LIGHT_MAGENTA} $@${NC} >>"
 	processExitStatus $retVal
 }
