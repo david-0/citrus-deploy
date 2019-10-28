@@ -9,7 +9,7 @@ Restart=always
 RestartSec=1
 User=davidl
 Environment=NODE_ENV=production
-WorkingDirectory=/home/david/dev/citrus-prod/citrus-run
+WorkingDirectory=/home/alixon/usr/davidl/website/citrus-prod/citrus-run
 ExecStart=/usr/bin/node dist/app.js
 
 [Install]
