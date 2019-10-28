@@ -70,6 +70,7 @@ else
 	exec cd citrus-run
 	exec git reset --hard
 	exec git clean -fd
+	exec git pull
 	updateDbSettings ${systemdServiceName}
 	exec rm -rf dist
 	exec npm run build
@@ -82,6 +83,7 @@ else
 		exec cd citrus-client
 		exec git reset --hard
 		exec git clean -fd
+		exec git pull
 		exec npm run build-prod
 		exec npm run deploy
 		exec cd ..

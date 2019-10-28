@@ -22,6 +22,7 @@ else
 	exec cd citrus-client
 	exec git reset --hard
 	exec git clean -fd
+	exec git pull
 	exec npm run build-prod
 	exec cd ..
 fi;
