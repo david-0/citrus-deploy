@@ -73,6 +73,7 @@ cat > /etc/letsencrypt/renewal-hooks/pre/stopCitrusServer.sh << EOF
 #!/bin/bash
 systemctl stop citrus-prod
 EOF
+chmod 700 /etc/letsencrypt/renewal-hooks/pre/stopCitrusServer.sh
 cat > /etc/letsencrypt/renewal-hooks/post/startCitrusServer.sh << EOF
 #!/bin/bash
 systemctl start citrus-prod
