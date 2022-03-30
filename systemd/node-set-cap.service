@@ -6,7 +6,7 @@ StartLimitIntervalSec=0
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=setcap 'cap_net_bind_service=+ep' /usr/bin/node
+ExecStart=/sbin/setcap 'cap_net_bind_service=+ep' /usr/bin/node
 
 [Install]
 WantedBy=multi-user.target
