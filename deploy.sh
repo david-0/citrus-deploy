@@ -44,7 +44,7 @@ if [[ "$level" = "full" ]] || [[ ! -d "citrus-client" ]] ; then
 	exec git clone https://github.com/david-0/citrus-server.git
 	exec cd citrus-server
 	updateDbSettings ${systemdServiceName}
-	exec npm install
+	exec npm install --force
 	exec npm run build
 	exec cd ..
 
