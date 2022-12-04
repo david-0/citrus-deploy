@@ -10,7 +10,7 @@ RestartSec=1
 User=davidl
 Environment=NODE_ENV=production
 WorkingDirectory=/home/alixon/usr/davidl/website/citrus-prod/citrus-run
-ExecStart=/usr/bin/node dist/app.js
+ExecStart=/usr/bin/ts-node src/app.ts
 
 [Install]
 WantedBy=multi-user.target
