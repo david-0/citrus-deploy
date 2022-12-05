@@ -43,10 +43,10 @@ if [[ "$level" = "full" ]] || [[ ! -d "citrus-client" ]] ; then
 	exec rm -rf citrus-server
 	exec git clone https://github.com/david-0/citrus-server.git
 	exec cd citrus-server
+	exec mv ormconfig.js.json ormconfig.json
 	updateDbSettings ${systemdServiceName}
 	exec npm install
 	exec npm run build
-	exec mv ormconfig.js.json ormconfig.json
 	exec cd ..
 
 	if [[ "${usePrebuiltClient}" = "yes" ]]; then
@@ -72,10 +72,10 @@ else
 	exec git reset --hard
 	exec git clean -fd
 	exec git pull
+	exec mv ormconfig.js.json ormconfig.json
 	updateDbSettings ${systemdServiceName}
 	exec rm -rf dist
 	exec npm run build
-	exec mv ormconfig.js.json ormconfig.json
 	exec cd ..
 	
 	if [[ "${usePrebuiltClient}" = "yes" ]]; then
