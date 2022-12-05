@@ -46,7 +46,7 @@ if [[ "$level" = "full" ]] || [[ ! -d "citrus-client" ]] ; then
 	updateDbSettings ${systemdServiceName}
 	exec npm install
 	exec npm run build
-	exec mv ormconfig.js.son ormconfig.json
+	exec mv ormconfig.js.json ormconfig.json
 	exec cd ..
 
 	if [[ "${usePrebuiltClient}" = "yes" ]]; then
@@ -75,7 +75,7 @@ else
 	updateDbSettings ${systemdServiceName}
 	exec rm -rf dist
 	exec npm run build
-	exec mv ormconfig.js.son ormconfig.json
+	exec mv ormconfig.js.json ormconfig.json
 	exec cd ..
 	
 	if [[ "${usePrebuiltClient}" = "yes" ]]; then
