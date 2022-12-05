@@ -44,12 +44,13 @@ if [[ "$level" = "full" ]] || [[ ! -d "citrus-client" ]] ; then
 	exec git clone https://github.com/david-0/citrus-server.git
 	exec cd citrus-server
 	updateDbSettings ${systemdServiceName}
-	exec npm install
+	exec npm install --force
+	exec npm run build
 	exec cd ..
 
 	if [[ "${usePrebuiltClient}" = "yes" ]]; then
-		exec rm -rf citrus-server/src/client
-		exec mv prebuilt-client citrus-server/src/client
+		exec rm -rf citrus-server/dist/client
+		exec mv prebuilt-client citrus-server/dist/client
 	else
 		exec rm -rf citrus-client
 		exec git clone https://github.com/david-0/citrus-client.git
@@ -76,8 +77,8 @@ else
 	exec cd ..
 	
 	if [[ "${usePrebuiltClient}" = "yes" ]]; then
-		exec rm -rf citrus-server/src/client
-		exec mv prebuilt-client citrus-run/src/client
+		exec rm -rf citrus-server/dist/client
+		exec mv prebuilt-client citrus-run/dist/client
 	else
 		exec cd citrus-client
 		exec git reset --hard

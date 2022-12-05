@@ -23,8 +23,6 @@ insert into role (id,name) values ('3','guest');
 insert into role (id,name) values ('4','store');
 insert into user_roles_role ("userId", "roleId") values ('1', '1');
 
-# install ts-node
-npm install -g ts-node
 # configure systemd
 sudo cp systemd/* /etc/systemd/system/
 sudo systemctl daemon-reload

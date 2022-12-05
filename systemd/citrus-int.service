@@ -10,7 +10,7 @@ RestartSec=1
 User=davidl
 Environment=NODE_ENV=production PORT_HTTP=4001 PORT=4002
 WorkingDirectory=/home/alixon/usr/davidl/website/citrus-int/citrus-run
-ExecStart=/usr/bin/ts-node src/app.ts
+ExecStart=/usr/bin/node dist/app.js
 
 [Install]
 WantedBy=multi-user.target
