@@ -1,6 +1,6 @@
 #!/bin/bash
 
-server=davidl@88.99.118.38
+server=davidl@shop.el-refugio-denia.com.domains.alixon.ch
 
 s=$(readlink -f $0)
 cd ${s%/*}
